@@ -100,4 +100,66 @@ rx长轴半径和ry短轴半径，cx, cy椭圆的中心点
 
 命令可以分为大写字母和小写字母。大写字母为绝对定位**相对于原点**。小写字母使用的相对定位, **相对之前的点**
 
+#### 常用属性
+
+##### stroke
+
+描边色
+
+##### fill
+
+填充色
+
+#### 路径常用的命令
+
+##### M
+
+类似canvas中的moveTo
+
+```js
+
+<svg width="200px" height="200px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+  // 移动到(10, 10)
+  <path d="M10 10"/>
+
+</svg>
+```
+
+##### L
+
+类似canvas中的lintTo, 之前的位置与L命令指定的坐标画一条线
+
+##### H
+
+H绘制水平线, 只需要x坐标的参数 "H 20", 绘制当前Y轴坐标和x坐标为20的水平线
+
+##### V
+
+V绘制垂直线, 只需要制定Y轴坐标
+
+![image](https://i.loli.net/2019/02/20/5c6c2ecec07fe.png)
+
+```js
+
+// 绘制直角三角形
+
+$('#app').append(`
+  <svg width="200" height="200">
+    <path d="M10 10 H 100 V 50"/>
+  </svg>
+`)
+```
+
+##### Z z
+
+Z可以闭合路径, Z可以不区分大小写(path会自动的闭合路径)
+
+##### C 三次贝塞尔
+
+C 控制点1x 控制点1y 控制点2x 控制点2y x y
+
+需要三组参数, 终点(指定x, y坐标, 起点为当前点的坐标)。以及两个控制点。**手动一点一点调还是很浪费时间的，可以事先在软件调好后，导出路径**
+
+![image](https://developer.mozilla.org/@api/deki/files/159/=Cubic_Bezier_Curves.png)
 
