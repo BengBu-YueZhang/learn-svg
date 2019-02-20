@@ -163,3 +163,21 @@ C 控制点1x 控制点1y 控制点2x 控制点2y x y
 
 ![image](https://developer.mozilla.org/@api/deki/files/159/=Cubic_Bezier_Curves.png)
 
+##### S
+
+S 命令一般需要跟在C命令和S命令的后面。**S命令的第一个控制点, 将会是C的第二个控制点的对称点**, 所以S命令只需要指定第二个控制点和终点即可
+
+![image](https://developer.mozilla.org/@api/deki/files/363/=ShortCut_Cubic_Bezier.png)
+
+##### Q 二次贝塞尔
+
+Q 控制点1x 控制点1y 终点x 终点y
+
+![image](https://developer.mozilla.org/@api/deki/files/326/=Quadratic_Bezier.png)
+
+##### T
+
+T和S命令类似, T命令需要跟在Q命令后面, T命令的控制点是Q的控制点的对称点。T命令只需要指定终点即可
+
+![image](https://developer.mozilla.org/@api/deki/files/364/=Shortcut_Quadratic_Bezier.png)
+
