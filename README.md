@@ -292,3 +292,68 @@ $('#app').append(`
 
 
 ### 渐变色
+
+#### 线性渐变 linearGradient
+
+linearGradient标签需要在defs标签的内部, linearGradient默认的方向是水平方向的。可以指定x1，x2，y1, y2指定渐变的方向
+
+```js
+
+$('#app').append(`
+  <svg width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="red"/>
+          <stop offset="50%" stop-color="black" stop-opacity="0"/>
+          <stop offset="100%" stop-color="blue"/>
+        </linearGradient>
+    </defs>
+    <rect x="10" y="120" rx="15" ry="15" width="100" height="100" fill="url(#Gradient2)"/>
+  </svg>
+`)
+```
+
+#### 径向渐变 radialGradient
+
+cx, cy 取 0 - 1 表示径向渐变的中心点的位置 (默认0.5)
+
+r 半径 (默认为0.5)
+
+fx, fy 为焦点的位置, 如果不设置焦点，默认和cx，cy一样
+
+cx，cy, r 定义了径向渐变的范围
+
+fx, fy 则是渐变的中心
+
+![image](https://developer.mozilla.org/files/727/SVG_Radial_Grandient_Focus_Example.png)
+
+```js
+
+$('#app').append(`
+  <svg width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="Gradient"
+            cx="0.5" cy="0.5" >
+        <stop offset="0%" stop-color="red"/>
+        <stop offset="100%" stop-color="blue"/>
+      </radialGradient>
+    </defs>
+    <rect x="10" y="120" rx="15" ry="15" width="100" height="100" fill="url(#Gradient)"/>
+  </svg>
+`)
+```
+
+![image](https://i.loli.net/2019/02/24/5c724c6921fff.png)
+
+##### spreadMethod
+
+定义尚未被填充的区域的颜色的行为
+
+1. pad，用100%颜色填充剩下的空间
+
+2. reflect, reflect进行反向渐变，100%逐渐过度到0%的颜色
+
+3. repeat，100%直接回到最初的颜色，进行渐变
+
+
+
