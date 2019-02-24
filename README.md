@@ -181,3 +181,91 @@ T和S命令类似, T命令需要跟在Q命令后面, T命令的控制点是Q的�
 
 ![image](https://developer.mozilla.org/@api/deki/files/364/=Shortcut_Quadratic_Bezier.png)
 
+##### A 弧形
+
+> 弧形就是绘制椭圆形的一部分, 绘制弧形的需要的参数如下
+
+- 当前的点(圆弧上的点, 可以使用M命令指定圆弧绘制的起始点)
+- x轴半径
+- y轴半径
+- 圆弧的倾斜度
+- 0(小角圆弧), 1(大角圆弧)
+- 0(逆时方向), 1(顺时方向)
+- 圆弧上另一个终点坐标 
+
+###### 逆时针小角与大角的区别
+
+```js
+$('#app').append(`
+  <svg width="325px" height="325px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="
+          M 100 100
+          A 45 45, 0, 0, 0, 145 145
+          L 145 100
+          Z
+          "
+        fill="blue"
+      />
+  </svg>
+`)
+```
+
+![image](https://i.loli.net/2019/02/24/5c7238bc9d551.png)
+
+
+```js
+
+$('#app').append(`
+  <svg width="325px" height="325px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="
+          M 100 100
+          A 45 45, 0, 1, 0, 145 145
+          L 145 100
+          Z
+          "
+        fill="blue"
+      />
+  </svg>
+`)
+```
+
+![image](https://i.loli.net/2019/02/24/5c723995a7593.png)
+
+###### 顺时针小角与大角的区别
+
+
+```js
+
+$('#app').append(`
+  <svg width="325px" height="325px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="
+          M 100 100
+          A 45 45, 0, 0, 1, 145 145
+          L 145 100
+          Z
+          "
+        fill="blue"
+      />
+  </svg>
+`)
+```
+
+![image](https://i.loli.net/2019/02/24/5c723d0a5179c.png)
+
+```js
+
+$('#app').append(`
+  <svg width="325px" height="325px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="
+          M 100 100
+          A 45 45, 0, 1, 1, 145 145
+          L 145 100
+          Z
+          "
+        fill="blue"
+      />
+  </svg>
+`)
+```
+
+![image](https://i.loli.net/2019/02/24/5c723ce48c361.png)
