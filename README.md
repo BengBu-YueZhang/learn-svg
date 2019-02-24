@@ -29,6 +29,7 @@ svg中的一像素对应屏幕中的一像素, 但是svg的画布可以放大和
 // svg画布的尺寸为 200px * 200px
 // viewBox 定义显示区域为 100 * 100
 // svg会将100 * 100的区域放大成200 * 200的效果显示
+// 所以放大了两倍
 
 <svg width="200" height="200" viewBox="0 0 100 100">
 </svg>
@@ -377,6 +378,146 @@ $('#app').append(`
 ```
 
 ### 文字
+
+svg内部使用text设置文字, [文档](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Tutorial/Texts), 其他文字样式的属性可以参考。
+
+#### tspan
+
+可以对一大段文字中的一部分文字做特殊的样式处理
+
+#### textPath
+
+文字可以按照特定的路径排列
+
+```js
+
+$('#app').append(`
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path id="my_path" d="M 20,20 C 40,40 80,40 200,20" fill="rgba(0, 0, 0, 0)" />
+  <text>
+    <textPath xlink:href="#my_path">This text follows a curve.</textPath>
+  </text>
+</svg>
+`)
+```
+
+### 基础变形
+
+#### <g>
+
+g标签可以对一组svg元素进行属性的赋值
+
+```js
+// 一组rect都会填充蓝色
+
+$('#app').append(`
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <g fill="blue">
+    <rect x="0" y="0" width="10" height="10" />
+    <rect x="20" y="0" width="10" height="10" />
+  </g>
+</svg>
+`)
+```
+
+#### transform
+
+#### 平移 translate
+
+```js
+
+// 平移到点100, 100
+
+$('#app').append(`
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <g fill="blue" transform="translate(100, 100)">
+    <rect x="0" y="0" width="10" height="10" />
+  </g>
+</svg>
+`)
+```
+
+#### 旋转 rotate
+
+指定角度旋转svg元素
+
+#### 缩放 scale
+
+#### SVG嵌套SVG
+
+可以形成两套不同的坐标系统
+
+```js
+
+// 内部的svg坐标系统是放大两倍的存在
+
+$('#app').append(`
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <rect x="100" y="100" width="50" height="50" />
+  <svg width="100" height="100" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <rect width="50" height="50" />
+  </svg>
+</svg>
+`)
+```
+
+### 剪切和遮罩
+
+#### clipPath
+
+svg将会把clipPath覆盖的内容保存下来，clipPath外面的内容将不会被渲染
+
+![image](https://i.loli.net/2019/02/24/5c7290ecece85.png)
+
+```js
+// 只会保留100 * 100 里的内容, 1 / 4 圆
+
+$('#app').append(`
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="cut-off-bottom">
+      <rect x="0" y="0" width="100" height="100" />
+    </clipPath>
+  </defs>
+
+  <circle cx="100" cy="100" r="100" clip-path="url(#cut-off-bottom)" />
+</svg>
+`)
+```
+
+#### 遮罩
+
+mask属性会继承mask的alpha值
+
+```js
+
+$('#app').append(`
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="Gradient">
+      <stop offset="0" stop-color="white" stop-opacity="0" />
+      <stop offset="1" stop-color="white" stop-opacity="1" />
+    </linearGradient>
+    <mask id="Mask">
+      <rect x="0" y="0" width="200" height="200" fill="yellow"  />
+    </mask>
+  </defs>
+
+  <rect x="0" y="0" width="200" height="200" fill="green" />
+  <rect x="0" y="0" width="200" height="200" fill="red" mask="url(#Mask)" />
+</svg>
+`)
+```
+
+#### opacity
+
+- opacity 整体的透明度
+- fill-opacity 填充的透明度
+- stroke-opacity 描边的透明度
+
+---
+
+*👆 上面就是mdn上svg文档的大致内容, 关于动画, 动态svg, 动画均没有涉及, 接下来是www.w3.org的内容，因为是全[英文的文档](https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#filters), 写的时候可能有些偏差, 大家可以直接查看英文文档*
 
 ---
 
