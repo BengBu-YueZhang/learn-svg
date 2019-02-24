@@ -106,6 +106,26 @@ rx长轴半径和ry短轴半径，cx, cy椭圆的中心点
 
 描边色
 
+##### stroke-width
+
+描边的宽度
+
+##### stroke-linecap
+
+描边的终点样式
+
+![image](https://developer.mozilla.org/@api/deki/files/355/=SVG_Stroke_Linecap_Example.png)
+
+##### stroke-linejoin
+
+边与边的链接样式
+
+![image](https://developer.mozilla.org/@api/deki/files/356/=SVG_Stroke_Linejoin_Example.png)
+
+##### stroke-dasharray
+
+虚线的样式
+
 ##### fill
 
 填充色
@@ -269,3 +289,6 @@ $('#app').append(`
 ```
 
 ![image](https://i.loli.net/2019/02/24/5c723ce48c361.png)
+
+
+### 渐变色
