@@ -1,14 +1,11 @@
 $('#app').append(`
 <svg width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="Gradient"
-          cx="0.5" cy="0.5" >
-      <stop offset="0%" stop-color="red"/>
-      <stop offset="100%" stop-color="blue"/>
-    </radialGradient>
+    <pattern id="Pattern" x="0" y="0" width=".25" height=".25">
+      <rect x="0" y="0" width="50" height="50" fill="skyblue"/>
+      <circle cx="15" cy="15" r="15" fill="green" fill-opacity="0.5"/>
+    </pattern>
   </defs>
-
-  <rect x="10" y="120" rx="15" ry="15" width="100" height="100" fill="url(#Gradient)"/>
-
+  <rect width="120" height="120" fill="url(#Pattern)"/>
 </svg>
 `)

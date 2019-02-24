@@ -355,5 +355,36 @@ $('#app').append(`
 
 3. repeat，100%直接回到最初的颜色，进行渐变
 
+### 图案 Pattern
+
+pattern定义可以复用用来填充的svg图案。
+
+![image](https://i.loli.net/2019/02/24/5c72542d1bb74.png)
+
+```js
+
+$('#app').append(`
+  <svg width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="Pattern" x="0" y="0" width=".25" height=".25">
+        <rect x="0" y="0" width="50" height="50" fill="skyblue"/>
+        <circle cx="15" cy="15" r="15" fill="green" fill-opacity="0.5"/>
+      </pattern>
+    </defs>
+    <rect width="120" height="120" fill="url(#Pattern)"/>
+  </svg>
+`)
+```
+
+### 文字
+
+---
+
+### 滤镜
+
+### SMIL动画
+
+### 动态SVG
+
 
 
