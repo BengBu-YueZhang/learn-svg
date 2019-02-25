@@ -523,7 +523,31 @@ $('#app').append(`
 
 ### 滤镜
 
+待更新……
+
 ### SMIL动画
+
+SMIL动画使用"animate"标签实现
+
+```js
+
+$('#app').append(`
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <circle cx="50" cy="50" r="10" opacity="1"  fill="grey">
+      <animate attributeName="r" fill="freeze" dur="0.4s" 
+      values="10; 50;"/>
+      <animate attributeName="opacity" fill="freeze" dur="0.4s" 
+      values="1; 0;"/>
+   </circle>
+</svg>
+`)
+
+```
+
+1. attributeName, animate将会修改父级
+2. dur, 动画持续的时间
+3. repeatCount: indefinite 动画将会持续重复执行
+4. values 动画value的变化
 
 ### 动态SVG
 
