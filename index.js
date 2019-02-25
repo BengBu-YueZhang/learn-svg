@@ -1,10 +1,13 @@
 $('#app').append(`
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-   <circle cx="50" cy="50" r="10" opacity="1"  fill="grey">
-      <animate attributeName="r" fill="freeze" dur="0.4s" 
-      values="10; 50;"/>
-      <animate attributeName="opacity" fill="freeze" dur="0.4s" 
-      values="1; 0;"/>
-   </circle>
+<circle cx="50%" cy="20" r="5%" fill="blue">
+   <animate
+      attributeName="cx"
+      dur="3"
+      values="5%; 95%; 5%" 
+      repeatCount="indefinite"
+      keyTimes="0; .1; 1"
+   />
+</circle>
 </svg>
 `)

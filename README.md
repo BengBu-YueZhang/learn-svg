@@ -530,6 +530,7 @@ $('#app').append(`
 SMIL动画使用"animate"标签实现
 
 ```js
+// 水波纹效果
 
 $('#app').append(`
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -546,8 +547,70 @@ $('#app').append(`
 
 1. attributeName, animate将会修改父级
 2. dur, 动画持续的时间
-3. repeatCount: indefinite 动画将会持续重复执行
+3. repeatCount: indefinite 动画将会持续重复执行, 设置成数字表示动画将会执行几次
 4. values 动画value的变化
+5. begin 动画开始
+6. end 动画结束
+7. fill: freeze, 动画停在最后位置，而不是恢复到第一个位置
+
+#### 基本的SMIL动画
+
+SVG动画默认在动画结束后会恢复到开始的状态，可以设置fill: freeze, 动画停在最后位置，而不是恢复到第一个位置。
+
+```js
+
+$('#app').append(`
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <rect x="10%" y="20" height="100" width="50" fill="blue">
+      <animate attributeName="x" dur="4" values="10%;30%;90%;30%;10%" />
+   </rect>
+</svg>
+`)
+```
+
+##### values的设置
+
+values="10%;90%;10%" 和 values="10%;50%;90%;50%;10%" 是等价的
+
+###### values="10%;90%;10%", values="10%;50%;90%;50%;10%"
+
+1. dur设置为4s, 动画在4s / 2时到达90%的位置, 10% - 90% 花费时间2s
+2. 动画在4s / 4 到达50%位置, 50%位置是10% - 90%的中间位置, 所以速度和values="10%;90%;10%"的设置是一样的
+
+###### values="10%;30%;90%;30%;10%"
+
+动画在4s / 4 到达30%位置, 4s / 2到达90%的位置, 所以前1s速度和后1s的速度是不一致的
+
+#### 多个动画和时间
+
+可以设置多个animate标签，同时修改多个svg的属性
+
+#### keyTimes
+
+values值默认对应是均分dur时间的values="10%;90%;10%", 默认对应的时间的时刻是为dur * 0, dur * 0.5, dur * 1
+
+keyTimes可以打破这种均分的dur的间隔
+
+```js
+
+// 5 ~ 95% 花费 dur * 0.1 的时间
+// 95% ～ 5% 花费 dur * 0.9 的时间
+
+$('#app').append(`
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<circle cx="50%" cy="20" r="5%" fill="blue">
+   <animate
+      attributeName="cx"
+      dur="3"
+      values="5%; 95%; 5%" 
+      repeatCount="indefinite"
+      keyTimes="0; .1; 1"
+   />
+</circle>
+</svg>
+`)
+```
+
 
 ### 动态SVG
 
