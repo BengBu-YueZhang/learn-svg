@@ -611,6 +611,53 @@ $('#app').append(`
 `)
 ```
 
+#### keySplines
+
+keySplines可以控制运动的速率, 🐶*这一块我没有太看明白，大概是用贝塞尔曲线的形式控制速率*
+
+#### 多值属性的动画
+
+animate可以对多属性的值添加动画, 比如path中的d属性。但是动画属性中相关联动画属性的值的数量要与path中d属性路径的数量一致。如果路径在动画开头有17个点，则整个动画中应该有17个点。
+
+```js
+
+$('#app').append(`
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <path d="
+      M 100 100
+      A 45 45, 0, 1, 1, 190 100
+      L 145 100
+      Z
+      "
+      fill="rgba(0, 0, 0, 0)"
+      stroke="rgb(0, 0, 0)"
+   >
+   <animate attributeName="d" dur="10s" repeatCount="indefinite" values=
+      "
+      M 100 100
+      A 45 45, 0, 1, 1, 190 100
+      L 145 100
+      Z
+      ;
+      M 100 100
+      A 45 45, 0, 1, 1, 145 145
+      L 145 100
+      Z
+      ;
+      M 100 100
+      A 45 45, 0, 1, 1, 190 100
+      L 145 100
+      Z
+      "
+   />
+   </path>
+</svg>
+`)
+
+```
+
+#### 遵循路径运动 animateMotion
+
 
 ### 动态SVG
 
