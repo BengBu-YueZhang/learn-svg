@@ -722,9 +722,113 @@ $('#app').append(`
 
 #### 非数字属性的动画
 
+SMIL也可以为一些非数值属性提供过度的动画，比如fill填充色，
+
 #### 使用时间或事件启动动画
 
+begin="1s", 可以延迟动画的发生1s, 但是会出现一个问题就是，如下图所展示的
+
+![image](http://www.w3.org/Graphics/SVG/IG/resources/StateOfArt/m3c4c1b7b.png)
+
+在第二个小球动画开始之前, 有begin设置为1s的延迟。这个时候第二个小球的默认渲染位置出现在(0, 0)的位置
+
+##### 如何解决这个问题?
+
+**可以使用set标签, 控制小球的显示隐藏**, 设置标签设置在延迟1s后，小球的opacity值设置为0.8。或是我们可以使用begin触发set标签
+
+```js
+
+<ellipse cx="0" cy="0" rx="20" ry="12" fill="#aaa" 
+ stroke="#666" stroke-width="2" opacity="0">
+ <set attributeName="opacity" to=".8" begin="1" />
+ <animateMotion dur="2s" begin="1" rotate="auto" 
+ repeatCount="indefinite" >
+  <mpath xlink:href="#curve"/>
+ </animateMotion>
+</ellipse>
+```
+
+```js
+
+// animateMotion, 开始执行动画，将会触发set标签
+
+<ellipse cx="0" cy="0" rx="20" ry="12" fill="#aaa" 
+ stroke="#666" stroke-width="2" opacity="0">
+
+ <set attributeName="opacity" to=".8" begin="M.begin" />
+
+ <animateMotion id="M" dur="2s" begin="1" rotate="auto" 
+ repeatCount="indefinite" >
+  <mpath xlink:href="#curve"/>
+ </animateMotion>
+</ellipse>
+```
+
+##### 使用事件触发svg动画
+
+```js
+
+$('#app').append(`
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <path
+      id="my_path"
+      d="M 100 100 A 45 45, 0, 1, 1, 190 100 L 145 100 Z"
+      fill="rgba(0, 0, 0, 0)"
+   />
+   <text>
+      <textPath
+         id="text"
+         xlink:href="#my_path"
+      >
+         This text follows a curve.
+      </textPath>
+   </text>
+   <text id="hello" x="30" y="30">Hello World!</text>
+   <animate
+      id="size"
+      attributeName="font-size"
+      xlink:href="#text"
+      begin="click" 
+      values="8;50;8"
+      dur="6"
+      repeatCount="indefinite"
+   />
+   <animate
+      attributeName="font-size"
+      xlink:href="#hello"
+      begin="size.begin" 
+      values="8;50;8"
+      dur="6"
+      repeatCount="indefinite"
+   />
+</svg>
+`)
+```
+
 #### 停止动画
+
+1. 设置dur执行时间和repeatCount执行次数
+2. 设置animate的end属性
+3. javascript调用endElement()的方法
+4. pauseAnimations全局停止动画
+
+```js
+
+
+$('#app').append(`
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <g id="end">
+      <text x="30" y="30">End</text>
+   </g>
+   <rect x="50" y="50" id="rect" width="20" height="20" />
+   <animate attributeName="x" repeatCount="indefinite" xlink:href="#rect" dur="1s" values="50; 100; 50"
+      end="end.click"
+      fill="freeze"
+   />
+</svg>
+`)
+
+```
 
 
 ### 动态SVG
