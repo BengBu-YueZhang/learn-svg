@@ -658,6 +658,74 @@ $('#app').append(`
 
 #### 遵循路径运动 animateMotion
 
+使用animateMotion可以实现跟随path的动画
+
+```js
+
+$('#app').append(`
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <path id="curve" stroke="black" fill="none" stroke-width="5"
+   d="M 110,200 C 300,130 400,350 450,150 500,-50 -90,270 110,200" />
+
+   <circle cx="0" cy="-5" r="20"fill="blue">
+      <animateMotion dur="2s" rotate="auto" repeatCount="indefinite" >
+         <mpath xlink:href="#curve"/>
+      </animateMotion>
+   </circle>
+</svg>
+`)
+```
+
+mpath中的xlink:href指定具体动画跟随的路径
+
+rotate: auto, 会在绕路径移动的时候，进行旋转， 使其方向与路径的方向平行
+
+值得注意的一点**circle的cx="0",cy="-5", 不在是相对与整个画布的偏移， 而是变为了相对于路径偏移**
+
+#### 转换动画
+
+对于transform的变化，动画标签学习需要使用animateTransform的标签
+
+```js
+
+// rotate需要指定旋转的中心点
+$('#app').append(`
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<ellipse cx="280" cy="175" rx="100" ry="50" fill="blue">
+<animateTransform attributeName="transform" type="rotate" dur="2.5" 
+ values="360 280 175; 0 280 175" to="0" repeatCount="indefinite"/>
+</ellipse>
+</svg>
+`)
+```
+
+##### 设置多个Transform属性的动画
+
+需要为animateTransform标签设置additive="sum", 阻止以前的动画被忽略
+
+```js
+
+$('#app').append(`
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <ellipse cx="216" cy="242" rx="160" ry="219" fill="#964" id="plane">
+   </ellipse>
+   <animateTransform attributeName="transform" type="translate" dur="4s" 
+   values="0,0;-110,-140;0,0" repeatCount="indefinite" xlink:href="#plane"/>
+   <animateTransform attributeName="transform" additive="sum" type="scale" 
+   dur="4s" values="1;1.5;1" repeatCount="indefinite" xlink:href="#plane"/>
+   <animateTransform attributeName="transform" additive="sum" type="rotate" 
+   dur="7s" values="0,216 242;360 216 242" repeatCount="indefinite" xlink:href="#plane"/>
+</svg>
+`)
+```
+
+
+#### 非数字属性的动画
+
+#### 使用时间或事件启动动画
+
+#### 停止动画
+
 
 ### 动态SVG
 
