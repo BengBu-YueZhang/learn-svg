@@ -809,7 +809,7 @@ $('#app').append(`
 
 1. 设置dur执行时间和repeatCount执行次数
 2. 设置animate的end属性
-3. javascript调用endElement()的方法
+3. javascript调用endElement()的方法(动画开始可以使用beginElement())
 4. pauseAnimations全局停止动画
 
 ```js
@@ -834,7 +834,55 @@ $('#app').append(`
 
 #### 简单的互动
 
+Javascript可以触发SMIL动画，同样的SMIL动画也可以触发Javascript的函数, 例如onbegin, 当SMIL动画开始时触发
+
+```js
+
+$('#app').append(`
+   <svg id="svg" width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <ellipse cx="280" cy="175" rx="100" ry="50" fill="blue">
+         <animateTransform id="animateTransform" attributeName="transform" type="rotate" dur="2.5" 
+         values="360 280 175; 0 280 175" to="0" begin="indefinite"/>
+      </ellipse>
+   </svg>
+   <button id="button">click动画开始</button>
+`)
+
+$('#button').click(() => {
+   // 通过javascript触发smil动画
+   $('#animateTransform').get(0).beginElement()
+})
+
+```
+
+```js
+
+// svg元素跟随鼠标移动
+// 可以使用setAttribute，getAttribute设置和获取svg元素的属性
+
+$('#app').append(`
+   <svg id="svg" width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <ellipse id="ellipse" cx="280" cy="175" rx="100" ry="50" fill="blue">
+         <animateTransform id="animateTransform" attributeName="transform" type="rotate" dur="2.5" 
+         values="360 280 175; 0 280 175" to="0" begin="indefinite"/>
+      </ellipse>
+   </svg>
+`)
+
+$(document).mousemove((event) => {
+   let ellipse = $('#ellipse').get(0)
+   ellipse.setAttribute('cx', event.clientX)
+   ellipse.setAttribute('cy', event.clientY)
+})
+```
+
+##### event.target event.currentTaget
+
+- event.target 返回触发事件的元素
+- event.currentTaget 返回绑定事件的元素
+
 #### 创建新的SVG对象
+
 
 #### 删除或删除对象
 
